@@ -23,8 +23,15 @@ function b64DecodeUnicode(str) {
     }).join(''));
 }
 
-const updateURL = () => {
-    window.location.search = m.buildQueryString({ data: b64EncodeUnicode(JSON.stringify(_data)) })
+const updateURL = (_data) => {
+
+    const newSearch = m.buildQueryString({ data: b64EncodeUnicode(JSON.stringify(_data)) });
+
+    if (history.pushState) {
+        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + newSearch;
+        window.history.pushState({ path: newurl }, '', newurl);
+    }
+
     return true;
 };
 

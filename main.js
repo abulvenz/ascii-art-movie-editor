@@ -115,7 +115,10 @@ if (!queryStringFrames) {
                 rows: project.rows(),
                 cols: project.cols(),
                 value: project.currentFrame(),
-                oninput: e => project.currentFrame(e.target.value)
+                oninput: e => {
+                    project.currentFrame(e.target.value);
+                    urlStorage.updateURL(project.frames());
+                }
             }), br(),
             button({
                 onclick: () => project.addFrame()
